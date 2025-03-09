@@ -1,0 +1,9 @@
+//int list list list
+[[[2,3,4]]];
+
+//(int * char) list 
+[(3, #"a")];
+
+//string list * (int * (real * string )* int)
+(["ciao"],(3,(4.2,"ciao"),3));
+
