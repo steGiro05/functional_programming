@@ -1,0 +1,80 @@
+//PATTERNS (like switch cases)
+fun reverse (nil) = nil
+| reverse (x::xs) = reverse (xs) @ [x];
+
+fun merge (nil, M )=m
+| merge (L,nil)=L 
+| merge (L as x::xs, M as y::ys)=
+    if x < y then x::merge (xs,M) else y:: merge (L, ys);
+
+//anonimous variable
+fun comb (_,0)=1
+| comb (n,m)=if n = m then 1 else comb (n-1,m)+comb (n-1,m-1);
+
+fun comb (_,0) = 1
+| comb (n,n) = 1
+| comb (n,m) = 1; //can't use the same variable twice
+
+//examples
+[(1,2),(3,4),(5,6)]=>sum everything up
+fun sum_pairs (nil)=0
+| sum_pairs ((x,y)::zs)= x+y+sum_pairs (zs);
+
+[[1,2],nil, [3],[3,4,5]]=> add all together
+fun sumLists (nil)=0
+| sumLists (nil::Ys)=sumLists (Ys)
+| sumLists ((x::xs)::Ys) = x + sumLists (xs::Ys);   
+
+fun length (nil) =0
+| length (xs@[x])=1+length(xs);
+//error cannot use tail 
+
+fun square (0) =0
+| square (x+1) = 1+2*x +square (x);
+//error plus not a constructor
+
+//also you can't use reals in patterns
+
+
+fun reverse (niil)= nil
+| reverse (x::xs)=[]
+//everything match the first cause of the typo 
+//warning: redundance
+
+fun factorial (0)=1
+| factorial (n)=n* factorial (n-1);
+
+fun cycle (nil) = nil
+| cycle (x :: xs) = xs@[x];
+
+fun cicle_i (L,0)=L
+| cicle_i (L,i) = cycle_i (cycle (L),i-1);
+
+[1,2,3,4] [1,1,2,2,3,3,4,4]
+fun duplicate (nil) = nil
+| duplicate (x::xs) = x :: x :: duplicate (xs);
+
+fun powr (x,0) = 1
+| powr (x,n) = x * powr (x,n-1);
+
+[2.0,3.0,4.0] find largest
+
+fun largest (nil)= 0.0
+| largest ([x:real])=x
+| largest (x :: y :: zs) = if x<y then largest (y::zs) else largest (x::zs);
+
+fun flip (nil)= nil
+| flip (x::nil)=x 
+| flip (x::y::tail) = y::x::flip(tail);
+
+L i => return l without ith element 
+fun remove (nil,m)=nil 
+| remove (x::tail,1)= tail 
+| remove ([x],n)=[x]
+| remove (x:: tail,i)=x::remove(tail, i-1); 
+
+fun square (0) = 0
+  | square (1) = 1
+  | square (n) = if n < 0 
+                 then square((-1 * n) - 1) + (2 * (-1 * n)) - 1
+                 else square(n - 1) + (2 * n) - 1;
