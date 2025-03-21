@@ -1,0 +1,96 @@
+//SETS
+fun member (_,nil) = false
+| member (x, h::tail) = (x=h orelse member (x,tail));
+
+//delete (x,s)
+fun delete (_, nil) = nil
+| delete (n,h::tail)= if n=h then tail else h::delete(n,tail);
+
+//insert x into a set if the element is already there don't inser it 
+fun insert(x,[]) = [x]
+| insert(x,s as h::t) = if x=h then s else h::insert(x,t);
+
+fun insertAll (a,nil) = nil 
+| insertAll(a,L::ls) =(a::L) :: insertAll(a,ls);
+
+fun powerSet (nil) = [nil]
+| powerSet (x::xs) = powerSet (xs) @ insertAll (x,powerSet(xs));
+
+fun prodDiff1 (_,nil) = 1.0
+| prodDiff1(a, b::bs) = (a-b)* prodDiff1 (a,bs);
+
+fun prodDiff (nil) = 1.0
+| prodDiff(x::xs) = prodDiff1(x, xs) * prodDiff(xs);
+
+fun sumPairs (nil) =0
+| sumPairs ((x,y)::zs)=x+y+sumPairs(zs);
+
+fun hundrethPower (x:real) =
+let 
+val four = x*x*x*x;
+val twenty = four*four*four*four*four
+in
+twenty * twenty * twenty * twenty * twenty
+end;
+
+//about overriding variables
+fun hundrethPower (x:real) =
+let 
+val x = x*x*x*x;
+val twenty = x*x*x*x*x
+in
+x * x * x * x * x
+end;
+
+//let's implement merge sort
+fun split (nil)=(nil,nil)
+| split ([a])=([a],nil)
+| split (a::b::cs)=
+let
+val (M,N)= split (cs)
+in
+(a::M,b::N)
+end;
+
+fun merge (nil, M )=M
+| merge (L,nil)=L 
+| merge (L as x::xs, M as y::ys)=
+    if x < y then x::merge (xs,M) else y:: merge (L, ys);
+
+
+fun mergeSort (nil)=nil
+| mergeSort ([a])=[a]
+| mergeSort (L)=
+let val (M,N)=split L;
+val M = mergeSort (M)
+val N = mergeSort (N)
+in
+merge(M,N)
+end;
+//end of the merge sort 
+
+fun thousanthPower(x:real)=
+let
+val five = x*x*x*x*x 
+val twenty = five *five *five *five
+val hundred = twenty*twenty*twenty*twenty*twenty
+val fivehundred= hundred*hundred*hundred*hundred*hundred
+in 
+fivehundred* fivehundred
+end;
+
+fun powerSet (nil) = [nil]
+| powerSet (x::xs) = 
+let 
+val L =powerSet (xs)
+in 
+L @ insertAll(x,L)
+end;
+
+maxReals (nil) = 0.0
+| maxReals (x::xs) =
+let
+val maxTail = maxReals (xs)
+in
+if x<maxTail then maxTail else x 
+end;

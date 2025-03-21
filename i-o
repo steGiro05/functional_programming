@@ -1,0 +1,28 @@
+//OUTPUT
+//UNIT
+//unit is a special character which is an empty thing ()
+//used for things that don't return anything
+
+//ex function print();
+
+fun testZero (0) = print ("zero\n")
+| testZero (_) = print ("not zero\n");
+
+val x = 1.0E50;
+print (Real.toString(x));
+//same procedure for int and booleand 
+print (Int.toString(someint))
+
+//if i want to print more things?
+
+
+//INPUTS
+val infile = TextIO.openIn ("C:/projects/functional_programming/test");
+TextIO.endOfStream (infile); //bool
+TextIO.inputN (infile,4);
+TextIO.inputN (infile,1);//actually reads the 5th character 
+TextIO.input (infile); // whole file in a string 
+//if you try ti read the next character of a finished file you get NONE 
+TextIO.lookahead (infile); // next char  
+TextIO.canInput (infile,3); // how many chars left  
+
