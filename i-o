@@ -17,12 +17,101 @@ print (Int.toString(someint))
 
 
 //INPUTS
-val infile = TextIO.openIn ("C:/projects/functional_programming/test");
+val in = TextIO.openIn "C:\\projects\\functional_programming\\test.txt";
+TextIO.closeIn in;
 TextIO.endOfStream (infile); //bool
+
 TextIO.inputN (infile,4);
 TextIO.inputN (infile,1);//actually reads the 5th character 
+
 TextIO.input (infile); // whole file in a string 
 //if you try ti read the next character of a finished file you get NONE 
 TextIO.lookahead (infile); // next char  
 TextIO.canInput (infile,3); // how many chars left  
 
+SOME () //unit option
+SOME NONE //'a option option 
+fun f () = SOME true // unit-> boolean option 
+
+
+
+//SOME EXERCISES
+
+fun doubleExp(x:real,0)=x
+| doubleExp (x,i)= let 
+val y = doubleExp(x,i-1)
+in
+y*y 
+end;
+
+fun sumPairs (nil) = (0,0)
+| sumPairs ((x,y)::zs) = let 
+val (z1,z2) = sumPairs (zs)
+in 
+(x+z1,y+z2)
+end;
+
+fun sumList (nil) = (0,0)
+| sumList ([x]) = (0,x)
+| sumList (x::y::zs) = let 
+val (sumEven, sumOdd) = sumList (zs)
+in
+(y+sumEven, x+ sumOdd)
+end;
+
+fun printList (nil) = () 
+| printList (x::xs) = (
+    print (Int.toString (x));
+    print ("\n");
+    printList(xs)
+    );
+
+
+//   n!/(m! (n-m)!)
+
+fun factorial (0)=1
+| factorial (n)=n* factorial (n-1);
+
+
+fun comb n m = 
+(
+    print ("n is "); 
+    print (Int.toString n); 
+    print "\n"; 
+    print ("m is "); 
+    print (Int.toString m); 
+    print "\n"; 
+    print ("Result is "); 
+    print (Int.toString (factorial n div (factorial m * factorial (n - m)))); 
+    print "\n"
+);
+
+fun makeList (1) = "X"
+| makeList (n) = makeList (n-1) ^ makeList (n-1) ^ ("\n");
+
+fun printXs n = print (makeList n);
+
+val inStream = TextIO.openIn "C:\\projects\\functional_programming\\test.txt";
+
+
+fun white(" ")=true
+| white ("\t")=true 
+| white ("\n")=true 
+| white (_)=false ;
+
+fun getWord (file)=
+if TextIO.endOfStream (file) then ""
+else 
+let val c = TextIO.inputN(file,1)
+in
+if white(c) then ""
+else c^getWord(file)
+end;
+
+fun getList1 (file) =
+if TextIO.endOfStream (file) then nil
+else getWord (file) :: getList1 (file);
+
+val in = TextIO.openIn "C:\\projects\\functional_programming\\test.txt";
+val l = getList1(in);
+TextIO.closeIn (in);
